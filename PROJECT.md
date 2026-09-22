@@ -6,7 +6,8 @@
 **Название продукта:** TaskSpace  
 **Коды участников:** `M1`, `M2`, `M3`  
 **Статус:** `утверждено`
-Требования безопасности: [security-requirements.md](security-requirements.md)
+**Требования безопасности:** [security-requirements.md](security-requirements.md)
+
 
 Основа: тема № 17 «Командные задачи» из банка идей курса.
 
