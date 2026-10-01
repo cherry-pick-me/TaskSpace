@@ -9,14 +9,14 @@ flowchart LR
     User["Пользователь"]
 
     subgraph Client["Клиентский контур — ему нельзя доверять автоматически"]
-        UI["Веб-интерфейс React<br/>планируется"]
+        UI["Веб-интерфейс React<br/>"]
         Direct["Прямой HTTP-клиент<br/>.http или curl"]
     end
 
     subgraph Server["Серверный контур TaskSpace"]
-        API["HTTP API ASP.NET Core<br/>планируется"]
-        EF["Entity Framework Core<br/>планируется"]
-        DB[("SQLite<br/>планируется")]
+        API["HTTP API ASP.NET Core<br/>"]
+        EF["Entity Framework Core<br/>"]
+        DB[("SQLite<br/>")]
     end
 
     User --> UI
