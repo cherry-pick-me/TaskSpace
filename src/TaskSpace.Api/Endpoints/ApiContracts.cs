@@ -20,3 +20,6 @@ public static class ApiResponses
     public static IResult NotFound() => Results.Json(new ApiError("Объект не найден."), statusCode: 404);
     public static IResult BadRequest(string error) => Results.Json(new ApiError(error), statusCode: 400);
 }
+
+public sealed record SubmitRequest(string? Text, long ExpectedVersion);
+public sealed record DecideRequest(int SubmissionId, string? Kind, string? Remark, long ExpectedVersion);
