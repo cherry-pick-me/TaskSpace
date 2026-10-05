@@ -82,7 +82,15 @@ public sealed class ServerSmokeTests
                 server.Dispose();
             }
             Microsoft.Data.Sqlite.SqliteConnection.ClearAllPools();
-            directory.Delete(recursive: true);
+            // На Windows дескриптор файла убитого процесса освобождается с задержкой.
+            for (var attempt = 0; ; attempt++)
+            {
+                try { directory.Delete(recursive: true); break; }
+                catch (Exception error) when (error is IOException or UnauthorizedAccessException && attempt < 50)
+                {
+                    await Task.Delay(100);
+                }
+            }
         }
     }
 
