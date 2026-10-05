@@ -36,6 +36,12 @@ public sealed class AuthenticationTests
     [InlineData("GET", "/api/tasks/1", "tampered")]
     [InlineData("POST", "/api/teams/1/tasks", "tampered")]
     [InlineData("GET", "/api/tasks/1", "malformed")]
+    [InlineData("POST", "/api/tasks/1/submissions", "missing")]
+    [InlineData("POST", "/api/tasks/1/submissions", "unknown")]
+    [InlineData("POST", "/api/tasks/1/submissions", "tampered")]
+    [InlineData("POST", "/api/tasks/1/decisions", "missing")]
+    [InlineData("POST", "/api/tasks/1/decisions", "unknown")]
+    [InlineData("POST", "/api/tasks/1/decisions", "tampered")]
     public async Task Protected_endpoints_reject_invalid_sessions_without_changes(string method, string path, string kind)
     {
         await using var app = new TestApp();

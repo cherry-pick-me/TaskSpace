@@ -14,6 +14,8 @@ public static class TaskEndpoints
         api.MapGet("/teams/{teamId:int}/tasks", ListAsync);
         api.MapGet("/tasks/{taskId:int}", GetAsync);
         api.MapPost("/teams/{teamId:int}/tasks", CreateAsync);
+        api.MapPost("/tasks/{taskId:int}/submissions", WorkflowEndpoints.SubmitAsync);
+        api.MapPost("/tasks/{taskId:int}/decisions", WorkflowEndpoints.DecideAsync);
     }
 
     private static async Task<IResult> ListAsync(int teamId, ClaimsPrincipal user,

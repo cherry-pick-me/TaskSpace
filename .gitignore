@@ -9,3 +9,6 @@
 .DS_Store
 .idea/
 .vs/
+
+web/node_modules/
+web/dist/

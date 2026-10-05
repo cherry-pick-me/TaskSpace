@@ -49,6 +49,16 @@ public sealed class ServerSmokeTests
                 assigneeId = 2
             });
             Assert.Equal(HttpStatusCode.RequestEntityTooLarge, tooLarge.StatusCode);
+            using var worker = new HttpClient { BaseAddress = client.BaseAddress };
+            using var workerLogin = await worker.PostAsJsonAsync("/api/auth/login", new { username = "bob", password = DatabaseInitializer.DemoPassword });
+            var workerSession = await workerLogin.Content.ReadFromJsonAsync<LoginResponse>();
+            worker.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", workerSession!.Token);
+            var taskPath = created.Headers.Location!.OriginalString;
+            using var submitted = await worker.PostAsJsonAsync(taskPath + "/submissions", new { text = "Saved submission", expectedVersion = 1 });
+            Assert.Equal(HttpStatusCode.Created, submitted.StatusCode);
+            var submission = await submitted.Content.ReadFromJsonAsync<SubmissionResponse>();
+            using var decision = await client.PostAsJsonAsync(taskPath + "/decisions", new { submissionId = submission!.Id, kind = "Accepted", expectedVersion = 2 });
+            Assert.Equal(HttpStatusCode.Created, decision.StatusCode);
             await StopServerAsync(server);
             server.Dispose();
             server = StartServer(database, port);
@@ -57,7 +67,10 @@ public sealed class ServerSmokeTests
             Assert.NotNull(saved);
             Assert.Equal("Real HTTP task", saved.Title);
             Assert.Equal(1, saved.AuthorId);
-            Assert.Equal(1, saved.Version);
+            Assert.Equal(3, saved.Version);
+            Assert.Equal("Accepted", saved.Status);
+            Assert.Equal("Saved submission", Assert.Single(saved.Submissions).Text);
+            Assert.Equal("Accepted", Assert.Single(saved.Decisions).Kind);
             var tasks = await client.GetFromJsonAsync<TaskResponse[]>("/api/teams/1/tasks");
             Assert.Equal(2, tasks?.Length);
         }
