@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+**/App_Data/
+**/TestResults/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+.DS_Store
+.idea/
+.vs/
