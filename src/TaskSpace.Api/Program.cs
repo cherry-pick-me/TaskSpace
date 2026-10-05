@@ -27,6 +27,7 @@ builder.Services.AddDbContext<AppDbContext>((services, options) =>
 });
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<TeamAccessService>();
+builder.Services.AddScoped<WorkflowService>();
 builder.Services.AddAuthentication(SessionAuthenticationHandler.SchemeName)
     .AddScheme<AuthenticationSchemeOptions, SessionAuthenticationHandler>(SessionAuthenticationHandler.SchemeName, _ => { });
 builder.Services.AddAuthorization();

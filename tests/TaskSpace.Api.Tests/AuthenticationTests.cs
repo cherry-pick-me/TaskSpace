@@ -134,7 +134,11 @@ public sealed class AuthenticationTests
         Assert.Equal(2, sessions.Count);
         Assert.Contains(sessions, s => s.TokenHash == SessionTokens.Hash(first.Token) && s.UserId == first.User.Id);
         Assert.Contains(sessions, s => s.TokenHash == SessionTokens.Hash(second.Token));
-        var file = Encoding.UTF8.GetString(await File.ReadAllBytesAsync(app.DatabasePath));
+        // FileShare.ReadWrite: на Windows SQLite держит файл открытым из пула соединений.
+        await using var stream = new FileStream(app.DatabasePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var buffer = new MemoryStream();
+        await stream.CopyToAsync(buffer);
+        var file = Encoding.UTF8.GetString(buffer.ToArray());
         Assert.DoesNotContain(DatabaseInitializer.DemoPassword, file);
         Assert.DoesNotContain(first.Token, file);
         Assert.DoesNotContain(second.Token, file);
