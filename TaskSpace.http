@@ -1,0 +1,47 @@
+@baseUrl = http://127.0.0.1:5080
+@token = PASTE_TOKEN_FROM_LOGIN_RESPONSE
+
+### Health: 200, {"status":"ok"}
+GET {{baseUrl}}/health
+
+### Login: copy token from response into the variable above
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{"username":"alice","password":"Study123!"}
+
+### Own team: 200
+GET {{baseUrl}}/api/teams/1/tasks
+Authorization: Bearer {{token}}
+
+### Own task: 200
+GET {{baseUrl}}/api/tasks/1
+Authorization: Bearer {{token}}
+
+### Foreign task with history: 404, no task data
+GET {{baseUrl}}/api/tasks/3
+Authorization: Bearer {{token}}
+
+### No session: 401
+GET {{baseUrl}}/api/tasks/1
+
+### Create: 201; authorId is ignored, saved author is alice (1)
+POST {{baseUrl}}/api/teams/1/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"title":"Учебная задача","description":"Подготовить описание API.","assigneeId":2,"authorId":4}
+
+### Foreign assignee: 400
+POST {{baseUrl}}/api/teams/1/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"title":"Учебная задача","description":"Не должна сохраниться.","assigneeId":5}
+
+### Self-assignment: 400
+POST {{baseUrl}}/api/teams/1/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"title":"Учебная задача","description":"Не должна сохраниться.","assigneeId":1}
