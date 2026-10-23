@@ -1,0 +1,7 @@
+  TaskSpace.Api -> /Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/src/TaskSpace.Api/bin/Debug/net10.0/TaskSpace.Api.dll
+  TaskSpace.Api.Tests -> /Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll
+Тестовый запуск для /Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll (.NETCoreApp,Version=v10.0)
+Общее количество тестовых файлов (1), соответствующих указанному шаблону.
+Файл результатов: /Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/docs/evidence/s06/full.trx
+
+Пройден!   : не пройдено     0, пройдено   111, пропущено     0, всего   111, длительность 12 s. - TaskSpace.Api.Tests.dll (net10.0)
