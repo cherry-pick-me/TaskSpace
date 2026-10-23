@@ -96,6 +96,32 @@ Commit React: `e12aa861c16b09a72e6c29b8a246bd423d9d340d` (`M2: add safe React cl
 
 ## S06 — обработка данных, M2
 
-- Подтверждено существующее свойство TaskSpace: невалидный JSON/тип не меняет базу, внутренний сбой вставки сдачи откатывает статус/версию и историю. Цепочка T-06 → SR-08/SR-10 → D-04 → 7 интеграционных случаев на файловой SQLite; отдельно проверены штатное создание и изоляция T-02/SR-03/D-02.
-- Тесты: [DataHandlingEvidenceTests](tests/TaskSpace.Api.Tests/DataHandlingEvidenceTests.cs), commit `b06ad4dd3319f80d701b9924edd2d951c30183e0`. Протокол, команды, первичный вывод и TRX: [S06_CHECKS](docs/S06_CHECKS.md). Производственный код не менялся: выбран вариант подтверждения уже обеспеченного свойства.
-- Автоматические проверки выполнены; ручная приёмка новой цепочки человеком ещё не заявляется.
+**Свойство и цепочка.** Подтверждено уже обеспеченное свойство, производственный код не менялся: отказ не оставляет частичных записей. Основная цепочка: **T-06 → SR-08/SR-10 → D-04 → проверки → фактический результат**. Дополнительно проверена изоляция **T-02 → SR-03 → D-02**. Тесты: [DataHandlingEvidenceTests](tests/TaskSpace.Api.Tests/DataHandlingEvidenceTests.cs).
+
+**Механизм.** [Program.cs](src/TaskSpace.Api/Program.cs) включает исключения при некорректном связывании данных; [ApiErrorMiddleware](src/TaskSpace.Api/Services/ApiErrorMiddleware.cs) различает 400/500, возвращает общий JSON без внутренних деталей и добавляет no-store. [WorkflowService](src/TaskSpace.Api/Services/WorkflowService.cs) изменяет задачу и историю в одной транзакции. [TaskEndpoints](src/TaskSpace.Api/Endpoints/TaskEndpoints.cs) сохраняет строки через EF Core и ограничивает доступ командой.
+
+**Версия и условия.** 2026-10-23, macOS arm64, SDK 10.0.401, runtime 10.0.12; исходное дерево `9be6c97`, тесты сохранены в `b06ad4dd3319f80d701b9924edd2d951c30183e0`. Полный набор выполнен на этом коммите; адресный — перед фиксацией идентичного содержимого тестов. Каждый случай использует отдельную файловую SQLite и HttpClient/WebApplicationFactory; рабочая база не затрагивается. Ошибки проверены в Production и Development. Alice — автор команды A, Bob — исполнитель задачи 1 (версия 1), Dave — участник B. Снимок сравнивает пользователей, команды, членство, задачи, сдачи, решения и сессии.
+
+| Проверка | Запрос и условия | Ожидаемый и фактический результат |
+| --- | --- | --- |
+| Повреждённый JSON, 2 окружения | Alice, POST `/api/teams/1/tasks`, `{ not valid json` | 400, `{"error":"Некорректный запрос."}`, без деталей и изменений базы; Passed ×2 |
+| Неверный тип, 2 окружения | Тот же метод, `{"title":"s06-private-input","description":"text","assigneeId":"not-an-integer"}` | 400, тот же общий ответ, база прежняя; Passed ×2 |
+| Отказ SQLite, 2 окружения | Bob, POST `/api/tasks/1/submissions`, `{"text":"s06-private-input","expectedVersion":1}`; тестовый BEFORE INSERT триггер отклоняет запись Submissions после UPDATE задачи | 500, `{"error":"Не удалось обработать запрос."}`; статус, версия и история откатились; Passed ×2 |
+| Позитивная и регрессионная | Alice создаёт обычную задачу и задачу с названием `O'Reilly'; DROP TABLE Tasks; --` и HTML-похожим описанием, assigneeId=2; читает результат | 201, строки сохранены буквально, Assigned/version 1, таблица цела; Passed |
+| Изоляция | Dave читает новые задачи A; список B сравнивается до и после | 404 без данных и изменений базы, список B прежний; Passed внутри предыдущего теста |
+
+**Диагностика.** Ошибки возвращают application/json и no-store, без Exception, System.Text.Json, Sqlite, Program.cs, пути базы и внутренних/пользовательских маркеров. Middleware записал `API error DbUpdateException; request <id>`. В захваченных форматированных логах не обнаружены bearer и отправленный приватный текст; отсутствие любых внутренних сведений во всех производственных журналах не заявляется.
+
+**Воспроизведение** из корня проекта с SDK 10:
+
+```bash
+dotnet restore --locked-mode
+dotnet test tests/TaskSpace.Api.Tests/TaskSpace.Api.Tests.csproj --filter FullyQualifiedName~DataHandlingEvidenceTests --logger "console;verbosity=detailed" --logger "trx;LogFileName=s06.trx" --results-directory docs/evidence/s06
+dotnet test tests/TaskSpace.Api.Tests/TaskSpace.Api.Tests.csproj --logger "trx;LogFileName=full.trx" --results-directory docs/evidence/s06
+```
+
+На macOS использован `DOTNET_USE_POLLING_FILE_WATCHER=1`, флаги `-m:1 -nr:false -p:UseSharedCompilation=false` и `--no-restore` после восстановления пакетов. VSTest требует локальный TCP-сокет: первоначальная попытка в песочнице была прервана его запретом и не считается проверкой; сохранённые успешные запуски выполнены с разрешённым локальным взаимодействием.
+
+**Первичные результаты:** [окружение](docs/evidence/s06/environment.txt), [базовый commit](docs/evidence/s06/base-commit.txt); [адресный вывод](docs/evidence/s06/targeted.txt) и [TRX](docs/evidence/s06/s06.trx) — **7/7**; [полный вывод](docs/evidence/s06/full.txt) и [TRX](docs/evidence/s06/full.trx) — **111/111**, без пропусков, включая прежние проверки и smoke сервера. Адресный текст — читаемый экспорт фактического StdOut из TRX.
+
+**Вывод и границы.** Подтверждены обработка конкретных ошибок ввода, откат при отказе вставки сдачи и сохранение штатной функции. Искусственная уязвимость не создавалась; триггер существует только в тестовой базе. SQL-похожая строка не проверяет все SQL-запросы, JSON round-trip не доказывает безопасность DOM (см. [проверки React](docs/M2_WEB_CHECKS.md)). Планы D-06–D-09 не подтверждены этими запусками. Ручная приёмка новой цепочки человеком ещё не заявляется.
