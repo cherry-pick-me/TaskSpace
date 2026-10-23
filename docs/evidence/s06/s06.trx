@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9de5de36-7aa1-408a-b3c3-46599a261abd" name="@z-ramazanova 2026-10-23 18:25:40" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-23T18:25:40.8496980+03:00" queuing="2026-10-23T18:25:40.8496980+03:00" start="2026-10-23T18:25:37.5814700+03:00" finish="2026-10-23T18:25:42.0066450+03:00" />
+  <TestSettings name="default" id="85b3c63c-7183-4e41-ad69-031ebea9ddd6">
+    <Deployment runDeploymentRoot="_z-ramazanova_2026-10-23_18_25_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3c37a8a6-d2d1-45af-aa6b-536c114c30b2" testId="36357b66-cc9e-a5b5-b56f-d2a779c11b37" testName="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{\&quot;title\&quot;:\&quot;s06-private-input\&quot;,\&quot;description\&quot;:\&quot;···, environment: &quot;Production&quot;)" computerName="z-ramazanova" duration="00:00:00.3827436" startTime="2026-10-23T18:25:39.5417270+03:00" endTime="2026-10-23T18:25:39.9121290+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c37a8a6-d2d1-45af-aa6b-536c114c30b2">
+      <Output>
+        <StdOut>Environment: Production; actor: alice; POST /api/teams/1/tasks; request: {"title":"s06-private-input","description":"text","assigneeId":"not-an-integer"}
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="54574acb-b6db-426d-8dd8-18d01ee83d8b" testId="afecf0b8-f166-711f-46fb-b9a81ef8b8c8" testName="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{\&quot;title\&quot;:\&quot;s06-private-input\&quot;,\&quot;description\&quot;:\&quot;···, environment: &quot;Development&quot;)" computerName="z-ramazanova" duration="00:00:00.3759133" startTime="2026-10-23T18:25:40.2999410+03:00" endTime="2026-10-23T18:25:40.6759620+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54574acb-b6db-426d-8dd8-18d01ee83d8b">
+      <Output>
+        <StdOut>Environment: Development; actor: alice; POST /api/teams/1/tasks; request: {"title":"s06-private-input","description":"text","assigneeId":"not-an-integer"}
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="48e94a03-ed08-4bd6-98bb-afac58ab2f00" testId="74d07027-cc4b-dd5f-20f4-251c9eab68d7" testName="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{ not valid json&quot;, environment: &quot;Development&quot;)" computerName="z-ramazanova" duration="00:00:01.5178987" startTime="2026-10-23T18:25:38.0064490+03:00" endTime="2026-10-23T18:25:39.5288900+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="48e94a03-ed08-4bd6-98bb-afac58ab2f00">
+      <Output>
+        <StdOut>Environment: Development; actor: alice; POST /api/teams/1/tasks; request: { not valid json
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eafe58c2-d337-4cf6-a6cf-b546ed44cdef" testId="3178576c-ce06-18f9-18e0-a1a93b51592e" testName="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{ not valid json&quot;, environment: &quot;Production&quot;)" computerName="z-ramazanova" duration="00:00:00.3874973" startTime="2026-10-23T18:25:39.9126600+03:00" endTime="2026-10-23T18:25:40.2997930+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eafe58c2-d337-4cf6-a6cf-b546ed44cdef">
+      <Output>
+        <StdOut>Environment: Production; actor: alice; POST /api/teams/1/tasks; request: { not valid json
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="83c2fca1-9724-4567-9123-c70568bb1c68" testId="6909782d-fdaf-a010-7e70-44cf492a6e15" testName="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Ordinary_and_sql_looking_text_create_tasks_without_changing_foreign_data" computerName="z-ramazanova" duration="00:00:00.4894483" startTime="2026-10-23T18:25:41.4738040+03:00" endTime="2026-10-23T18:25:41.9632550+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="83c2fca1-9724-4567-9123-c70568bb1c68">
+      <Output>
+        <StdOut>Actor: alice; POST /api/teams/1/tasks; title=S06 normal task; description=Normal result; assigneeId=2
+HTTP 201; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"id":4,"teamId":1,"authorId":1,"assigneeId":2,"title":"S06 normal task","description":"Normal result","status":"Assigned","version":1,"currentSubmissionId":null}
+Actor: alice; POST /api/teams/1/tasks; title=O'Reilly'; DROP TABLE Tasks; --; description=&lt;b&gt;text&lt;/b&gt;&lt;img src=x onerror=alert(1)&gt;; assigneeId=2
+HTTP 201; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"id":5,"teamId":1,"authorId":1,"assigneeId":2,"title":"O'Reilly'; DROP TABLE Tasks; --","description":"&lt;b&gt;text&lt;/b&gt;&lt;img src=x onerror=alert(1)&gt;","status":"Assigned","version":1,"currentSubmissionId":null}
+Both inputs persisted literally; tasks table remains readable; foreign team list unchanged; foreign reads return 404 without database changes. JSON round-trip is not a DOM/XSS test.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c3a98c67-959b-492a-977a-581db466f500" testId="403da386-a261-4678-4a0c-bbee0e3fd42b" testName="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Database_failure_rolls_back_submission_and_is_a_sanitized_500(environment: &quot;Development&quot;)" computerName="z-ramazanova" duration="00:00:00.4273042" startTime="2026-10-23T18:25:40.6769550+03:00" endTime="2026-10-23T18:25:41.1041590+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3a98c67-959b-492a-977a-581db466f500">
+      <Output>
+        <StdOut>Environment: Development; actor: bob; POST /api/tasks/1/submissions; text=s06-private-input; expectedVersion=1; SQLite history INSERT deliberately rejected.
+HTTP 500; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Не удалось обработать запрос."}
+Snapshot after database failure: unchanged, including task status/version and history.
+Middleware log: API error DbUpdateException; request 0HNPH37ID89FE.
+Captured formatted application logs contain neither the bearer token nor the submitted private text. No claim that all internal diagnostic details are absent from server logs.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="38a22850-25a4-4d55-af5b-ceee60dfdfa6" testId="3dd67f88-25e4-e202-2896-f73ca6087103" testName="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Database_failure_rolls_back_submission_and_is_a_sanitized_500(environment: &quot;Production&quot;)" computerName="z-ramazanova" duration="00:00:00.3692846" startTime="2026-10-23T18:25:41.1043270+03:00" endTime="2026-10-23T18:25:41.4735900+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="38a22850-25a4-4d55-af5b-ceee60dfdfa6">
+      <Output>
+        <StdOut>Environment: Production; actor: bob; POST /api/tasks/1/submissions; text=s06-private-input; expectedVersion=1; SQLite history INSERT deliberately rejected.
+HTTP 500; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Не удалось обработать запрос."}
+Snapshot after database failure: unchanged, including task status/version and history.
+Middleware log: API error DbUpdateException; request 0HNPH37ID89FG.
+Captured formatted application logs contain neither the bearer token nor the submitted private text. No claim that all internal diagnostic details are absent from server logs.</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{ not valid json&quot;, environment: &quot;Production&quot;)" storage="/users/z.ramazanova/documents/codex/2026-10-05/crk/taskspace/tests/taskspace.api.tests/bin/debug/net10.0/taskspace.api.tests.dll" id="3178576c-ce06-18f9-18e0-a1a93b51592e">
+      <Execution id="eafe58c2-d337-4cf6-a6cf-b546ed44cdef" />
+      <TestMethod codeBase="/Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TaskSpace.Api.Tests.DataHandlingEvidenceTests" name="Invalid_json_and_types_are_400_without_details_or_database_changes" />
+    </UnitTest>
+    <UnitTest name="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Database_failure_rolls_back_submission_and_is_a_sanitized_500(environment: &quot;Development&quot;)" storage="/users/z.ramazanova/documents/codex/2026-10-05/crk/taskspace/tests/taskspace.api.tests/bin/debug/net10.0/taskspace.api.tests.dll" id="403da386-a261-4678-4a0c-bbee0e3fd42b">
+      <Execution id="c3a98c67-959b-492a-977a-581db466f500" />
+      <TestMethod codeBase="/Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TaskSpace.Api.Tests.DataHandlingEvidenceTests" name="Database_failure_rolls_back_submission_and_is_a_sanitized_500" />
+    </UnitTest>
+    <UnitTest name="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Ordinary_and_sql_looking_text_create_tasks_without_changing_foreign_data" storage="/users/z.ramazanova/documents/codex/2026-10-05/crk/taskspace/tests/taskspace.api.tests/bin/debug/net10.0/taskspace.api.tests.dll" id="6909782d-fdaf-a010-7e70-44cf492a6e15">
+      <Execution id="83c2fca1-9724-4567-9123-c70568bb1c68" />
+      <TestMethod codeBase="/Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TaskSpace.Api.Tests.DataHandlingEvidenceTests" name="Ordinary_and_sql_looking_text_create_tasks_without_changing_foreign_data" />
+    </UnitTest>
+    <UnitTest name="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{\&quot;title\&quot;:\&quot;s06-private-input\&quot;,\&quot;description\&quot;:\&quot;···, environment: &quot;Development&quot;)" storage="/users/z.ramazanova/documents/codex/2026-10-05/crk/taskspace/tests/taskspace.api.tests/bin/debug/net10.0/taskspace.api.tests.dll" id="afecf0b8-f166-711f-46fb-b9a81ef8b8c8">
+      <Execution id="54574acb-b6db-426d-8dd8-18d01ee83d8b" />
+      <TestMethod codeBase="/Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TaskSpace.Api.Tests.DataHandlingEvidenceTests" name="Invalid_json_and_types_are_400_without_details_or_database_changes" />
+    </UnitTest>
+    <UnitTest name="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Database_failure_rolls_back_submission_and_is_a_sanitized_500(environment: &quot;Production&quot;)" storage="/users/z.ramazanova/documents/codex/2026-10-05/crk/taskspace/tests/taskspace.api.tests/bin/debug/net10.0/taskspace.api.tests.dll" id="3dd67f88-25e4-e202-2896-f73ca6087103">
+      <Execution id="38a22850-25a4-4d55-af5b-ceee60dfdfa6" />
+      <TestMethod codeBase="/Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TaskSpace.Api.Tests.DataHandlingEvidenceTests" name="Database_failure_rolls_back_submission_and_is_a_sanitized_500" />
+    </UnitTest>
+    <UnitTest name="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{\&quot;title\&quot;:\&quot;s06-private-input\&quot;,\&quot;description\&quot;:\&quot;···, environment: &quot;Production&quot;)" storage="/users/z.ramazanova/documents/codex/2026-10-05/crk/taskspace/tests/taskspace.api.tests/bin/debug/net10.0/taskspace.api.tests.dll" id="36357b66-cc9e-a5b5-b56f-d2a779c11b37">
+      <Execution id="3c37a8a6-d2d1-45af-aa6b-536c114c30b2" />
+      <TestMethod codeBase="/Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TaskSpace.Api.Tests.DataHandlingEvidenceTests" name="Invalid_json_and_types_are_400_without_details_or_database_changes" />
+    </UnitTest>
+    <UnitTest name="TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: &quot;{ not valid json&quot;, environment: &quot;Development&quot;)" storage="/users/z.ramazanova/documents/codex/2026-10-05/crk/taskspace/tests/taskspace.api.tests/bin/debug/net10.0/taskspace.api.tests.dll" id="74d07027-cc4b-dd5f-20f4-251c9eab68d7">
+      <Execution id="48e94a03-ed08-4bd6-98bb-afac58ab2f00" />
+      <TestMethod codeBase="/Users/z.ramazanova/Documents/Codex/2026-10-05/crk/TaskSpace/tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="TaskSpace.Api.Tests.DataHandlingEvidenceTests" name="Invalid_json_and_types_are_400_without_details_or_database_changes" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="36357b66-cc9e-a5b5-b56f-d2a779c11b37" executionId="3c37a8a6-d2d1-45af-aa6b-536c114c30b2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afecf0b8-f166-711f-46fb-b9a81ef8b8c8" executionId="54574acb-b6db-426d-8dd8-18d01ee83d8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74d07027-cc4b-dd5f-20f4-251c9eab68d7" executionId="48e94a03-ed08-4bd6-98bb-afac58ab2f00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3178576c-ce06-18f9-18e0-a1a93b51592e" executionId="eafe58c2-d337-4cf6-a6cf-b546ed44cdef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6909782d-fdaf-a010-7e70-44cf492a6e15" executionId="83c2fca1-9724-4567-9123-c70568bb1c68" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="403da386-a261-4678-4a0c-bbee0e3fd42b" executionId="c3a98c67-959b-492a-977a-581db466f500" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3dd67f88-25e4-e202-2896-f73ca6087103" executionId="38a22850-25a4-4d55-af5b-ceee60dfdfa6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="7" executed="7" passed="7" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.0+05679a7ab5 (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.06]   Discovering: TaskSpace.Api.Tests
+[xUnit.net 00:00:00.10]   Discovered:  TaskSpace.Api.Tests
+[xUnit.net 00:00:00.13]   Starting:    TaskSpace.Api.Tests
+[xUnit.net 00:00:04.11]   Finished:    TaskSpace.Api.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

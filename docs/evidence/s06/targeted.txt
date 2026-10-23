@@ -1,0 +1,52 @@
+Экспорт фактических результатов и StdOut из s06.trx (не исходный консольный поток).
+Источник: docs/evidence/s06/s06.trx
+
+TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: "{\"title\":\"s06-private-input\",\"description\":\"···, environment: "Production")
+Outcome: Passed
+Environment: Production; actor: alice; POST /api/teams/1/tasks; request: {"title":"s06-private-input","description":"text","assigneeId":"not-an-integer"}
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.
+
+TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: "{\"title\":\"s06-private-input\",\"description\":\"···, environment: "Development")
+Outcome: Passed
+Environment: Development; actor: alice; POST /api/teams/1/tasks; request: {"title":"s06-private-input","description":"text","assigneeId":"not-an-integer"}
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.
+
+TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: "{ not valid json", environment: "Development")
+Outcome: Passed
+Environment: Development; actor: alice; POST /api/teams/1/tasks; request: { not valid json
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.
+
+TaskSpace.Api.Tests.DataHandlingEvidenceTests.Invalid_json_and_types_are_400_without_details_or_database_changes(body: "{ not valid json", environment: "Production")
+Outcome: Passed
+Environment: Production; actor: alice; POST /api/teams/1/tasks; request: { not valid json
+HTTP 400; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Некорректный запрос."}
+Snapshot of users, teams, members, tasks, submissions, decisions and sessions: unchanged.
+
+TaskSpace.Api.Tests.DataHandlingEvidenceTests.Ordinary_and_sql_looking_text_create_tasks_without_changing_foreign_data
+Outcome: Passed
+Actor: alice; POST /api/teams/1/tasks; title=S06 normal task; description=Normal result; assigneeId=2
+HTTP 201; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"id":4,"teamId":1,"authorId":1,"assigneeId":2,"title":"S06 normal task","description":"Normal result","status":"Assigned","version":1,"currentSubmissionId":null}
+Actor: alice; POST /api/teams/1/tasks; title=O'Reilly'; DROP TABLE Tasks; --; description=<b>text</b><img src=x onerror=alert(1)>; assigneeId=2
+HTTP 201; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"id":5,"teamId":1,"authorId":1,"assigneeId":2,"title":"O'Reilly'; DROP TABLE Tasks; --","description":"<b>text</b><img src=x onerror=alert(1)>","status":"Assigned","version":1,"currentSubmissionId":null}
+Both inputs persisted literally; tasks table remains readable; foreign team list unchanged; foreign reads return 404 without database changes. JSON round-trip is not a DOM/XSS test.
+
+TaskSpace.Api.Tests.DataHandlingEvidenceTests.Database_failure_rolls_back_submission_and_is_a_sanitized_500(environment: "Development")
+Outcome: Passed
+Environment: Development; actor: bob; POST /api/tasks/1/submissions; text=s06-private-input; expectedVersion=1; SQLite history INSERT deliberately rejected.
+HTTP 500; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Не удалось обработать запрос."}
+Snapshot after database failure: unchanged, including task status/version and history.
+Middleware log: API error DbUpdateException; request 0HNPH37ID89FE.
+Captured formatted application logs contain neither the bearer token nor the submitted private text. No claim that all internal diagnostic details are absent from server logs.
+
+TaskSpace.Api.Tests.DataHandlingEvidenceTests.Database_failure_rolls_back_submission_and_is_a_sanitized_500(environment: "Production")
+Outcome: Passed
+Environment: Production; actor: bob; POST /api/tasks/1/submissions; text=s06-private-input; expectedVersion=1; SQLite history INSERT deliberately rejected.
+HTTP 500; Content-Type: application/json; charset=utf-8; Cache-Control: no-store; body: {"error":"Не удалось обработать запрос."}
+Snapshot after database failure: unchanged, including task status/version and history.
+Middleware log: API error DbUpdateException; request 0HNPH37ID89FG.
+Captured formatted application logs contain neither the bearer token nor the submitted private text. No claim that all internal diagnostic details are absent from server logs.
+
+Всего 7, Passed 7, Failed 0, Skipped 0.
