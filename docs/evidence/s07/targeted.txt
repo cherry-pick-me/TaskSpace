@@ -1,0 +1,43 @@
+  TaskSpace.Api -> src/TaskSpace.Api/bin/Debug/net10.0/TaskSpace.Api.dll
+  TaskSpace.Api.Tests -> tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll
+Test run for tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+tests/TaskSpace.Api.Tests/bin/Debug/net10.0/TaskSpace.Api.Tests.dll
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v4.0.0+05679a7ab5 (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: TaskSpace.Api.Tests
+[xUnit.net 00:00:00.09]   Discovered:  TaskSpace.Api.Tests
+[xUnit.net 00:00:00.11]   Starting:    TaskSpace.Api.Tests
+[xUnit.net 00:00:02.60]   Finished:    TaskSpace.Api.Tests
+  Passed TaskSpace.Api.Tests.AccessControlEvidenceTests.Existing_task_and_nested_history_are_visible_only_to_team_members [1 s]
+  Standard Output Messages:
+ dave GET /api/tasks/3 -> 200; {"id":3,"teamId":2,"authorId":4,"assigneeId":5,"title":"Проверить результат команды B","description":"Задача с историей сдач и решений.","status":"InReview","version":4,"currentSubmissionId":2,"submissions":[{"id":1,"submitterId":5,"text":"Первая сдача команды B.","createdAt":"2026-10-27T10:27:52.056724+00:00"},{"id":2,"submitterId":5,"text":"Доработанная сдача команды B.","createdAt":"2026-10-27T10:27:52.056778+00:00"}],"decisions":[{"id":1,"submissionId":1,"authorId":4,"kind":"Returned","remark":"Замечание автора команды B.","createdAt":"2026-10-27T10:27:52.066411+00:00"}]}
+ alice GET /api/tasks/3 -> 404; {"error":"Объект не найден."}
+ alice GET /api/tasks/99999 -> 404; {"error":"Объект не найден."}
+ alice GET /api/teams/2/tasks -> 404; {"error":"Объект не найден."}
+ alice GET /api/tasks/1 -> 200; {"id":1,"teamId":1,"authorId":1,"assigneeId":2,"title":"Подготовить README","description":"Описать запуск учебного проекта.","status":"Assigned","version":1,"currentSubmissionId":null,"submissions":[],"decisions":[]}
+ frank GET /api/tasks/3 -> 200; {"id":3,"teamId":2,"authorId":4,"assigneeId":5,"title":"Проверить результат команды B","description":"Задача с историей сдач и решений.","status":"InReview","version":4,"currentSubmissionId":2,"submissions":[{"id":1,"submitterId":5,"text":"Первая сдача команды B.","createdAt":"2026-10-27T10:27:52.056724+00:00"},{"id":2,"submitterId":5,"text":"Доработанная сдача команды B.","createdAt":"2026-10-27T10:27:52.056778+00:00"}],"decisions":[{"id":1,"submissionId":1,"authorId":4,"kind":"Returned","remark":"Замечание автора команды B.","createdAt":"2026-10-27T10:27:52.066411+00:00"}]}
+ PASS: существование подтверждено владельцем; чужая история не выдана; штатный доступ работает.
+
+
+  Passed TaskSpace.Api.Tests.AccessControlEvidenceTests.Role_and_team_denials_preserve_state_and_authorized_workflow_still_works [623 ms]
+  Standard Output Messages:
+ dave POST /api/teams/2/tasks -> 201; {"id":4,"teamId":2,"authorId":4,"assigneeId":5,"title":"S07: проверка полномочий","description":"Учебный результат команды B","status":"Assigned","version":1,"currentSubmissionId":null}
+ dave POST /api/tasks/4/submissions -> 403; {"error":"Действие недоступно."}
+ frank POST /api/tasks/4/submissions -> 403; {"error":"Действие недоступно."}
+ alice POST /api/tasks/4/submissions -> 404; {"error":"Объект не найден."}
+ erin POST /api/tasks/4/submissions -> 201; {"id":3,"submitterId":5,"text":"R1","createdAt":"2026-10-27T10:27:53.126819+00:00"}
+ erin POST /api/tasks/4/decisions -> 403; {"error":"Действие недоступно."}
+ frank POST /api/tasks/4/decisions -> 403; {"error":"Действие недоступно."}
+ alice POST /api/tasks/4/decisions -> 404; {"error":"Объект не найден."}
+ dave POST /api/tasks/4/decisions -> 201; {"id":2,"submissionId":3,"authorId":4,"kind":"Returned","remark":"Нужна доработка","createdAt":"2026-10-27T10:27:53.150038+00:00"}
+ erin POST /api/tasks/4/submissions -> 201; {"id":4,"submitterId":5,"text":"R2","createdAt":"2026-10-27T10:27:53.154335+00:00"}
+ dave POST /api/tasks/4/decisions -> 201; {"id":3,"submissionId":4,"authorId":4,"kind":"Accepted","remark":null,"createdAt":"2026-10-27T10:27:53.157841+00:00"}
+ PASS: отказы не изменили снимок базы; разрешённый цикл завершён, Accepted/version 5, две сдачи и два решения.
+
+
+
+Test Run Successful.
+Total tests: 2
+     Passed: 2
+ Total time: 2,8867 Seconds
+Results File: docs/evidence/s07/targeted.trx

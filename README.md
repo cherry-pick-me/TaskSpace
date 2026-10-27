@@ -62,3 +62,12 @@ bash scripts/m3-counterexample.sh   # при запущенном API
 ```
 
 Таблица переходов, условное обновление по версии, контрпример R1/R2, конкурентные решения и откат при сбое вставки истории: [M3_CHECKS](docs/M3_CHECKS.md).
+
+## S07: контроль доступа
+
+[Правило, механизм и результаты](CONTRIBUTIONS.md#s07--контроль-доступа-m1):
+изоляция команд и истории, проверка ролей и сохранение данных после отказа.
+
+```bash
+dotnet test --filter FullyQualifiedName~AccessControlEvidenceTests --logger 'console;verbosity=detailed'
+```

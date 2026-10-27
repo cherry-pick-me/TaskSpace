@@ -125,3 +125,39 @@ dotnet test tests/TaskSpace.Api.Tests/TaskSpace.Api.Tests.csproj --logger "trx;L
 **Первичные результаты:** [окружение](docs/evidence/s06/environment.txt), [базовый commit](docs/evidence/s06/base-commit.txt); [адресный вывод](docs/evidence/s06/targeted.txt) и [TRX](docs/evidence/s06/s06.trx) — **7/7**; [полный вывод](docs/evidence/s06/full.txt) и [TRX](docs/evidence/s06/full.trx) — **111/111**, без пропусков, включая прежние проверки и smoke сервера. Адресный текст — читаемый экспорт фактического StdOut из TRX.
 
 **Вывод и границы.** Подтверждены обработка конкретных ошибок ввода, откат при отказе вставки сдачи и сохранение штатной функции. Искусственная уязвимость не создавалась; триггер существует только в тестовой базе. SQL-похожая строка не проверяет все SQL-запросы, JSON round-trip не доказывает безопасность DOM (см. [проверки React](docs/M2_WEB_CHECKS.md)). Планы D-06–D-09 не подтверждены этими запусками. Ручная приёмка новой цепочки человеком ещё не заявляется.
+
+## S07 — контроль доступа, M1
+
+При помощи Codex добавлены [две проверки контроля доступа](tests/TaskSpace.Api.Tests/AccessControlEvidenceTests.cs).
+Производственный код API не менялся; подтверждено уже обеспеченное свойство.
+
+**Цепочка:** T-02 → SR-03 → D-02. [TeamAccessService](src/TaskSpace.Api/Services/TeamAccessService.cs)
+ограничивает выборку членством в команде, а [TaskEndpoints](src/TaskSpace.Api/Endpoints/TaskEndpoints.cs)
+выдаёт историю только доступной задачи. Dave читает существующую задачу B со
+сдачами и решением (`200`); Alice из A получает для неё и отсутствующего id
+одинаковый `404` без чужих данных. Штатное чтение Alice своей задачи и Frank
+задачи B проходит (`200`).
+
+**Полномочия и регрессия:** T-04/T-05 → SR-05/SR-06/SR-08 → D-03/D-04.
+[WorkflowService](src/TaskSpace.Api/Services/WorkflowService.cs) проверяет автора,
+исполнителя и членство перед изменением. Неверная роль своей команды получает
+`403`, посторонний — `404`; снимок всей базы после каждого отказа не меняется.
+Разрешённый цикл «создание → сдача R1 → возврат → сдача R2 → принятие»
+завершается состоянием Accepted, версией 5, двумя сдачами и двумя решениями.
+
+**Проверка:** 2026-10-27, macOS arm64, .NET SDK 10.0.401, отдельная файловая
+SQLite на тест. Адресные проверки — **2/2**, полный набор — **113/113**, без
+пропусков. [Адресный вывод](docs/evidence/s07/targeted.txt) и [TRX](docs/evidence/s07/targeted.trx);
+[полный вывод](docs/evidence/s07/full.txt) и [TRX](docs/evidence/s07/full.trx).
+Проверена рабочая копия от [исходного commit](docs/evidence/s07/base-commit.txt)
+с [изменением тестов](docs/evidence/s07/source.patch).
+В сохранённых TXT/TRX локальные абсолютные пути заменены путями от корня проекта.
+
+Из корня проекта:
+
+```bash
+dotnet test --filter FullyQualifiedName~AccessControlEvidenceTests --logger 'console;verbosity=detailed'
+```
+
+Подтверждены перечисленные сценарии доступа и сохранение штатной функции;
+проверка не является аудитом всех маршрутов и планируемых D-06–D-09.
