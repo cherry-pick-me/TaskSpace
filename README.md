@@ -71,3 +71,25 @@ bash scripts/m3-counterexample.sh   # при запущенном API
 ```bash
 dotnet test --filter FullyQualifiedName~AccessControlEvidenceTests --logger 'console;verbosity=detailed'
 ```
+
+## S08: сборка и стенд
+
+Нужны Docker с Linux-контейнерами и Compose. Из корня проекта:
+
+```bash
+docker compose up --build --wait
+curl http://127.0.0.1:5080/health
+```
+
+Ответ — `{"status":"ok"}`. Для остановки: `docker compose down`.
+База остаётся в томе `taskspace-data`; команда `docker compose down --volumes` удаляет её.
+React запускается отдельно, как описано выше.
+
+Если нужно поменять порт или адрес клиента, скопируйте `.env.example` в `.env`,
+измените `APP_PORT` или `WEB_ORIGIN` и повторите команду запуска.
+После смены порта API задайте клиенту соответствующий `VITE_API_URL`.
+`.env` не попадает в Git и образ.
+
+[GitHub Actions](.github/workflows/ci.yml) собирает API и React и запускает тесты.
+В артефакте `test-results` сохраняются отчёты тестов и `commit.txt` с проверенным коммитом.
+[Результаты S08](CONTRIBUTIONS.md#s08--сборка-тесты-и-стенд).

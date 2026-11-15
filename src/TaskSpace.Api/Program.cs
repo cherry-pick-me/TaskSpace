@@ -7,6 +7,20 @@ using TaskSpace.Api.Endpoints;
 using TaskSpace.Api.Services;
 using User = TaskSpace.Api.Models.User;
 
+// Compose проверяет уже запущенный API, второй сервер здесь не создаётся.
+if (args.Length == 1 && args[0] == "--healthcheck")
+{
+    try
+    {
+        using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(3) };
+        using var response = await client.GetAsync("http://127.0.0.1:8080/health");
+        Environment.ExitCode = response.IsSuccessStatusCode ? 0 : 1;
+    }
+    catch (HttpRequestException) { Environment.ExitCode = 1; }
+    catch (TaskCanceledException) { Environment.ExitCode = 1; }
+    return;
+}
+
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = 64 * 1024);
 builder.Services.Configure<RouteHandlerOptions>(options => options.ThrowOnBadRequest = true);
