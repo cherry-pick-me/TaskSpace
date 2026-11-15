@@ -170,10 +170,9 @@ dotnet test --filter FullyQualifiedName~AccessControlEvidenceTests --logger 'con
 
 15.11.2026 локально и в CI прошли 113 тестов API и 6 тестов React.
 Проверили запуск контейнера, сохранение задачи и сессии, смену разрешённого адреса
-клиента через `WEB_ORIGIN`. Результаты для commit `4b3c562`:
-[сборка и тесты](https://github.com/cherry-pick-me/TaskSpace/actions/runs/43733576995),
-[проверка контейнера](https://github.com/cherry-pick-me/TaskSpace/actions/runs/43733576931).
-Отчёты можно скачать из артефактов этих запусков.
+клиента через `WEB_ORIGIN`. [Сборка и тесты в CI](https://github.com/cherry-pick-me/TaskSpace/actions/runs/43734725152)
+прошли на коммите `37aa3f9`. Скачали артефакт `test-results`: в нём 113 успешных
+тестов API, 6 тестов React и тот же коммит в `commit.txt`. Контейнер проверили локально.
 
 В [учебном примере](https://github.com/vyakovlevv/s08-verification-base-csharp)
 намеренно поменяли ожидаемый ответ `/health` с 200 на 404. Локально упал один
