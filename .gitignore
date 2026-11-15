@@ -12,3 +12,8 @@
 
 web/node_modules/
 web/dist/
+
+.env
+.env.*
+!.env.example
+/docs/evidence/s08/
